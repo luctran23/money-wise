@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { Sidebar } from "@src/components/sidebar/Sidebar";
-import { Header } from "./header/Header";
+import { HeaderComponent } from "./header/Header";
 
 type LayoutProps = {
     children: ReactNode;
@@ -21,7 +21,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <Sidebar />
             </LeftNav>
             <RightNav>
-                <Header />
+                <HeaderComponent />
                 <div>{children}</div>
             </RightNav>
         </LayoutWrapper>

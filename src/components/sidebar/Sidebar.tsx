@@ -1,50 +1,60 @@
-import { LogoIcon } from "@src/icons/Logo";
-import { LogoutIcon } from "@src/icons/LogoutIcon";
-import React from "react";
+import React, { useState } from "react";
+import { Layout, Menu, MenuProps } from "antd";
+import {
+    DesktopOutlined,
+    FileOutlined,
+    PieChartOutlined,
+} from "@ant-design/icons";
 import styled from "styled-components";
-import { MenuItem } from "../menu/MenuItem";
+import { LogoIcon } from "@src/icons/Logo";
 
-const SidebarWrapper = styled.div`
-    height: 100vh;
-    width: 250px;
-    background: #cb8e6b;
-`;
+const { Sider } = Layout;
+type MenuItem = Required<MenuProps>["items"][number];
+function getItem(
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+): MenuItem {
+    return {
+        key,
+        icon,
+        children,
+        label,
+    } as MenuItem;
+}
+
+const items: MenuItem[] = [
+    getItem("Charts", "1", <PieChartOutlined />),
+    getItem("Expense table", "2", <DesktopOutlined />),
+    getItem("Lending Tracker", "3", <FileOutlined />),
+];
+
 const LogoWrapper = styled.div`
     width: 100%;
     height: 13%;
     text-align: center;
     padding: 10px;
 `;
-const MenuItemListWrapper = styled.div`
-    height: 82%;
-`;
-
-const LogoutSection = styled.div`
-    text-align: center;
-    height: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    svg {
-        width: 30px;
-    }
-`;
 export const Sidebar = () => {
+    const [collapsed, setCollapsed] = useState(false);
     return (
-        <SidebarWrapper>
-            <LogoWrapper>
-                <LogoIcon />
-            </LogoWrapper>
-            <MenuItemListWrapper>
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
-                <MenuItem />
-            </MenuItemListWrapper>
-            <LogoutSection>
-                <LogoutIcon /> Đăng xuất
-            </LogoutSection>
-        </SidebarWrapper>
+        <Layout style={{ minHeight: "100vh" }}>
+            <Sider
+                collapsible
+                collapsed={collapsed}
+                onCollapse={(value) => setCollapsed(value)}
+            >
+                <LogoWrapper>
+                    <LogoIcon />
+                </LogoWrapper>
+                <Menu
+                    theme="dark"
+                    defaultSelectedKeys={["1"]}
+                    mode="inline"
+                    items={items}
+                />
+            </Sider>
+        </Layout>
     );
 };
