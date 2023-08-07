@@ -17,9 +17,9 @@ export const routes: TRoutes[] = [
     {
         path: "/",
         component: (
-            <PrivateRoute>
-                <Home />
-            </PrivateRoute>
+            // <PrivateRoute>
+            <Home />
+            // </PrivateRoute>
         ),
     },
     {
