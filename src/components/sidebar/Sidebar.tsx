@@ -1,34 +1,11 @@
-import React, { useState } from "react";
-import { Layout, Menu, MenuProps } from "antd";
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-} from "@ant-design/icons";
+import React, { useContext, useState } from "react";
+import { Layout, Menu } from "antd";
 import styled from "styled-components";
 import { LogoIcon } from "@src/icons/Logo";
+import { menuItems, MENU_ITEM_IDS } from "@src/constants";
+import { ActiveContentContext } from "@src/context";
 
 const { Sider } = Layout;
-type MenuItem = Required<MenuProps>["items"][number];
-function getItem(
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-): MenuItem {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    } as MenuItem;
-}
-
-const items: MenuItem[] = [
-    getItem("Charts", "1", <PieChartOutlined />),
-    getItem("Expense table", "2", <DesktopOutlined />),
-    getItem("Lending Tracker", "3", <FileOutlined />),
-];
 
 const LogoWrapper = styled.div`
     width: 100%;
@@ -38,6 +15,13 @@ const LogoWrapper = styled.div`
 `;
 export const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const { setActiveMenuKey } = useContext(ActiveContentContext);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const handleMenuItemClicked = (e: any) => {
+        setActiveMenuKey(e.key);
+    };
+
     return (
         <Layout style={{ minHeight: "100vh" }}>
             <Sider
@@ -50,9 +34,10 @@ export const Sidebar = () => {
                 </LogoWrapper>
                 <Menu
                     theme="dark"
-                    defaultSelectedKeys={["1"]}
+                    defaultSelectedKeys={[MENU_ITEM_IDS.charts]}
                     mode="inline"
-                    items={items}
+                    items={menuItems}
+                    onClick={handleMenuItemClicked}
                 />
             </Sider>
         </Layout>

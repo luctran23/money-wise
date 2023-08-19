@@ -57,6 +57,9 @@ export const HeaderComponent = () => {
                         optionFilterProp="children"
                         onChange={onChange}
                         onSearch={onSearch}
+                        style={{
+                            minWidth: "120px",
+                        }}
                         filterOption={(input, option) =>
                             (option?.label ?? "")
                                 .toLowerCase()
