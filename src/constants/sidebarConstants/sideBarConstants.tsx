@@ -2,9 +2,13 @@ import React from "react";
 import { MenuProps } from "antd";
 import {
     DesktopOutlined,
-    FileOutlined,
     PieChartOutlined,
+    UserSwitchOutlined,
+    DollarCircleOutlined,
 } from "@ant-design/icons";
+import { Charts } from "@src/components/menuItemContents/charts/Charts";
+import { ExpenseTable } from "@src/components/menuItemContents/expenseTable/ExpenseTable";
+import { DebtorTracker } from "@src/components/menuItemContents/debtorTracker/DebtorTracker";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -12,6 +16,7 @@ export const MENU_ITEM_IDS = {
     charts: "charts",
     expenseTable: "expense-table",
     lendingTracker: "lending-tracker",
+    debtorTracker: "debtor-tracker",
 };
 
 type ExtraMenuItemType = {
@@ -43,20 +48,27 @@ export const menuItems: ExtraMenuItemType[] = [
         MENU_ITEM_IDS.charts,
         <PieChartOutlined />,
         undefined,
-        <>charts content</>,
+        <Charts />,
     ),
     getItem(
         "Expense table",
         MENU_ITEM_IDS.expenseTable,
         <DesktopOutlined />,
         undefined,
-        <>expense content</>,
+        <ExpenseTable />,
     ),
     getItem(
-        "Lending Tracker",
-        MENU_ITEM_IDS.lendingTracker,
-        <FileOutlined />,
+        "Debtor Tracker",
+        MENU_ITEM_IDS.debtorTracker,
+        <UserSwitchOutlined />,
         undefined,
-        <>lending content</>,
+        <DebtorTracker />,
+    ),
+    getItem(
+        "Loan Manager",
+        MENU_ITEM_IDS.lendingTracker,
+        <DollarCircleOutlined />,
+        undefined,
+        <>Loan Manager</>,
     ),
 ];
