@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "baseUrl": "",
+    "sourceMap": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noEmitOnError": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ],
+      "react": [
+        "./node_modules/@types/react"
+      ]
+    },
+    "resolveJsonModule": true,
+    "traceResolution": false,
+    "jsx": "react",
+    "types": [
+      "react"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./declarations.d.ts"
+    ],
+    "lib": [
+      "es2015",
+      "es2016",
+      "es6",
+      "dom"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "public",
+    "dist"
+  ]
+}
