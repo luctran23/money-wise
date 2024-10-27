@@ -4,6 +4,7 @@ import { Layout as LayoutAntd, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { DatePicker } from "antd";
+import { useGetCollection } from "@src/hooks/useGetCollection/useGetCollection";
 
 const { RangePicker } = DatePicker;
 
@@ -28,6 +29,8 @@ export const HeaderComponent = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const {data: categories, loading: isGettingCategories} = useGetCollection({ collectionName: "categories" });
+
 
     const onChange = (value: string) => {
         console.log(`selected ${value}`);
@@ -36,6 +39,12 @@ export const HeaderComponent = () => {
     const onSearch = (value: string) => {
         console.log("search:", value);
     };
+
+    const categoryOptions = categories.map(item => ({
+        value: item.id,
+        label: item.name
+    }));
+
     return (
         <Header
             style={{
@@ -60,25 +69,7 @@ export const HeaderComponent = () => {
                         style={{
                             minWidth: "120px",
                         }}
-                        filterOption={(input, option) =>
-                            (option?.label ?? "")
-                                .toLowerCase()
-                                .includes(input.toLowerCase())
-                        }
-                        options={[
-                            {
-                                value: "food",
-                                label: "Ăn uống",
-                            },
-                            {
-                                value: "shopping",
-                                label: "mua sắm",
-                            },
-                            {
-                                value: "entertain",
-                                label: "giải trí",
-                            },
-                        ]}
+                        options={categoryOptions}
                     />
                 </SelectionWrapper>
             </FilterSection>

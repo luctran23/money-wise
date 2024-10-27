@@ -9,6 +9,7 @@ export const HomeView = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+
     return (
         <ActiveContentProvider>
             <Layout>

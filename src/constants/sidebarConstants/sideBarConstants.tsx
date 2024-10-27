@@ -5,10 +5,12 @@ import {
     PieChartOutlined,
     UserSwitchOutlined,
     DollarCircleOutlined,
+    ClockCircleOutlined,
 } from "@ant-design/icons";
 import { Charts } from "@src/components/menuItemContents/charts/Charts";
 import { ExpenseTable } from "@src/components/menuItemContents/expenseTable/ExpenseTable";
 import { DebtorTracker } from "@src/components/menuItemContents/debtorTracker/DebtorTracker";
+import { WorkingTime } from "@src/components/menuItemContents/workingTime/workingTime";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -17,6 +19,7 @@ export const MENU_ITEM_IDS = {
     expenseTable: "expense-table",
     lendingTracker: "lending-tracker",
     debtorTracker: "debtor-tracker",
+    manageWorkingTime: "manage-working-time",
 };
 
 type ExtraMenuItemType = {
@@ -70,5 +73,12 @@ export const menuItems: ExtraMenuItemType[] = [
         <DollarCircleOutlined />,
         undefined,
         <>Loan Manager</>,
+    ),
+    getItem(
+        "Working time",
+        MENU_ITEM_IDS.manageWorkingTime,
+        <ClockCircleOutlined />,
+        undefined,
+        <WorkingTime />,
     ),
 ];
