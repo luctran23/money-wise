@@ -1,4 +1,5 @@
 import { Category } from "@src/types/categoryTypes";
+import { TExpense } from "@src/types/expenseTypes";
 
 export const getCategoryById  = (id: string, categories: Category[]) => {
     const matchedItem = categories.find(item => item.id === id);
@@ -20,4 +21,23 @@ export function formatCurrencyVND(amount: string): string {
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
     }).format(numericAmount);
+}
+
+export const groupExpensesByMonth = (expenses: TExpense[]) => {
+    if (!expenses.length) {
+        return {}
+    }
+    return expenses.reduce((acc, currentItem) => {
+        const date = new Date(currentItem.date);
+        const month = date.toLocaleDateString("default", { month: "long" });
+        const year = date.getFullYear();
+        
+        const monthYearKey = `${month} ${year}`;
+
+        if (!acc[monthYearKey]) {
+            acc[monthYearKey] = 0;
+        }
+        acc[monthYearKey] = acc[monthYearKey] + Number(currentItem.expense);
+        return acc;
+    }, {})
 }
