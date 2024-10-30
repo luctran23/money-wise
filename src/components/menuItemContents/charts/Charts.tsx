@@ -5,6 +5,27 @@ import { useGetCollection } from "@src/hooks/useGetCollection/useGetCollection";
 import { TExpense } from "@src/types/expenseTypes";
 import { groupExpensesByMonth } from "@src/utils/expense";
 
+const getDaysToTet = () => {
+    const today = new Date();
+    const tet = new Date("2025-01-28");
+    // Calculate the difference in milliseconds
+    const differenceInMilliseconds = tet.getTime() - today.getTime();
+
+    // Convert milliseconds to days
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+    return differenceInDays; // Return the difference in days
+}
+
+const getTimeOfLove = () => {
+    const today = new Date();
+    const thatDay = new Date("2024-08-25");
+
+    const diffMiliseconds = today.getTime() - thatDay.getTime();
+    const differenceInDays = Math.floor(diffMiliseconds / (1000 * 60 * 60 * 24));
+
+    return differenceInDays; // Return the difference in days
+}
 export const Charts: React.FC = () => {
     const { data: expenses } = useGetCollection({ collectionName: "expenses", dependencies: [] }) as { data: TExpense[]; loading: boolean };
 
@@ -59,8 +80,13 @@ export const Charts: React.FC = () => {
         series: seriesData,
     };
 
+    const daysToTet = getDaysToTet();
     return (
         <div>
+             Chỉ còn {daysToTet} ngày nữa là gặp vk yêu.
+             <div>
+                {`Chúng ta đã yêu nhau được ${getTimeOfLove()} ngày rồi.`}
+             </div>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
     );

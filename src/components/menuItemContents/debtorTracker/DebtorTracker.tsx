@@ -59,7 +59,7 @@ export const DebtorTracker = () => {
         <>
             <TableTitleWrapper>
                 <h2>
-                    Khoản tiền người khác chưa đưa tôi trong tháng 9 năm 2023
+                    Khoản tiền cho vay
                 </h2>
             </TableTitleWrapper>
             <Table dataSource={dataSource} columns={columns} />

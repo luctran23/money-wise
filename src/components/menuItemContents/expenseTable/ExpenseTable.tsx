@@ -87,7 +87,10 @@ export const ExpenseTable = () => {
     const handleCreateSave = async (formData: TExpense) => {
         if (mode === "create") {
             setIsLoading(true);
-            const data = await addData({ ...formData, key: new Date().getTime().toString() });
+            const data = await addData({
+                formData: { ...formData, key: new Date().getTime().toString() },
+                collectionName: "expenses"
+            });
             setIsLoading(false);
             setIsCreateDialogOpen(false);
             setMode("");
@@ -162,7 +165,7 @@ export const ExpenseTable = () => {
             title: "Ảnh",
             dataIndex: "imageUrl",
             key: "imageUrl",
-            render: (text: string) => text && <ImageWrapper src={text} alt="photo of expense" /> ||  <></>,
+            render: (text: string) => text && <ImageWrapper src={text} alt="photo of expense" /> || <></>,
         },
         {
             title: "Actions",

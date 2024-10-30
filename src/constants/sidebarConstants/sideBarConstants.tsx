@@ -6,11 +6,14 @@ import {
     UserSwitchOutlined,
     DollarCircleOutlined,
     ClockCircleOutlined,
+    HourglassOutlined,
+    ContactsOutlined,
 } from "@ant-design/icons";
 import { Charts } from "@src/components/menuItemContents/charts/Charts";
 import { ExpenseTable } from "@src/components/menuItemContents/expenseTable/ExpenseTable";
 import { DebtorTracker } from "@src/components/menuItemContents/debtorTracker/DebtorTracker";
 import { WorkingTime } from "@src/components/menuItemContents/workingTime/workingTime";
+import { BracesProgress } from "@src/components/menuItemContents/bracesProgress/BracesProgress";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -20,6 +23,8 @@ export const MENU_ITEM_IDS = {
     lendingTracker: "lending-tracker",
     debtorTracker: "debtor-tracker",
     manageWorkingTime: "manage-working-time",
+    bracesProgress: "braces-progress",
+    attendedWeddings: "attended-weddings",
 };
 
 type ExtraMenuItemType = {
@@ -75,10 +80,24 @@ export const menuItems: ExtraMenuItemType[] = [
         <>Loan Manager</>,
     ),
     getItem(
-        "Working time",
+        "Working Time",
         MENU_ITEM_IDS.manageWorkingTime,
         <ClockCircleOutlined />,
         undefined,
         <WorkingTime />,
+    ),
+    getItem(
+        "Braces Progress",
+        MENU_ITEM_IDS.bracesProgress,
+        <HourglassOutlined />,
+        undefined,
+        <BracesProgress />,
+    ),
+    getItem(
+        "Attended Weddings",
+        MENU_ITEM_IDS.attendedWeddings,
+        <ContactsOutlined />,
+        undefined,
+        <BracesProgress />,
     ),
 ];

@@ -1,13 +1,18 @@
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@src/firebase.js';
-import { TExpense } from '@src/types/expenseTypes';
+import dayjs from 'dayjs';
 
-export const addData = async ( formData: TExpense): Promise<any> => {
+type TAddData = {
+  formData: any;
+  collectionName: string;
+}
+export const addData = async ({ formData, collectionName }: TAddData): Promise<any> => {
     let error = "";
+    const now = dayjs();
     try {
-        const docRef = await addDoc(collection(db, 'expenses'), {
+        const docRef = await addDoc(collection(db, collectionName), {
           ...formData,
-          createdAt: new Date(),
+          createdAt: now.format('YYYY-MM-DD HH:mm:ss'),
         });
         return docRef.id;
       } catch (e: any) {
