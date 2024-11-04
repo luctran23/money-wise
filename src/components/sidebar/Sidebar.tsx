@@ -13,7 +13,7 @@ const LogoWrapper = styled.div`
     text-align: center;
     padding: 10px;
 `;
-export const Sidebar = () => {
+export const Sidebar = ({ className }) => {
     const [collapsed, setCollapsed] = useState(false);
     const { setActiveMenuKey } = useContext(ActiveContentContext);
 
@@ -23,7 +23,7 @@ export const Sidebar = () => {
     };
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
+        <Layout style={{ minHeight: "100vh" }} className={className}>
             <Sider
                 collapsible
                 collapsed={collapsed}

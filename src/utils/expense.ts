@@ -41,3 +41,10 @@ export const groupExpensesByMonth = (expenses: TExpense[]) => {
         return acc;
     }, {})
 }
+
+export const formatDescription = (str: string) => {
+    if (!str || typeof str !== "string") {
+        return "";
+    }
+    return str.slice(0, 5) + "...";
+}

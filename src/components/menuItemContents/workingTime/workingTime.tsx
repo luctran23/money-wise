@@ -1,57 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { addData } from "@src/hooks/addToCollection/addData";
-import { Button, message, Popconfirm, PopconfirmProps, Space, Spin, Table } from "antd";
+import { Button, Spin, Table } from "antd";
 import { useGetCollection } from "@src/hooks/useGetCollection/useGetCollection";
-import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { TWorkingTime } from "@src/types/workingTimeTypes";
 import dayjs from "dayjs";
+import { getWorkingTimeDataSource, groupTimeByDate } from "@src/utils/workingTime";
+import { TableTitleWrapper } from "../expenseTable/ExpenseTable";
 
 export const WorkingTime = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { data: timeHistory, loading: isGettingTime } = useGetCollection({ collectionName: "working-time", dependencies: [isLoading] }) as { data: any; loading: boolean };
 
-    const confirm: PopconfirmProps['onConfirm'] = async () => {
-        // await deleteExpense(selectedRecord.id);
-        message.success('Delete expense successfully!');
-    };
-
-    const cancel: PopconfirmProps['onCancel'] = () => { };
-
+    const dataSource = getWorkingTimeDataSource(timeHistory);
     const columns = [
         {
             title: "Thời gian",
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "createdDay",
+            key: "createdDay",
         },
         {
-            title: "Actions",
-            key: "actions",
-            render: (_, record: TWorkingTime) => (
-                <Space size="middle">
-                    <Button
-                        icon={<EyeOutlined />}
-                    // onClick={() => handleView(record)}
-                    />
-                    <Button
-                        icon={<EditOutlined />}
-                    // onClick={() => handleEdit(record)}
-                    />
-
-                    <Popconfirm
-                        title="Delete the task"
-                        description="Are you sure to delete this task?"
-                        onConfirm={confirm}
-                        onCancel={cancel}
-                        okText="Yes"
-                        cancelText="No"
-                    >
-                        <Button
-                            icon={<DeleteOutlined />}
-                        // onClick={() => setSelectedRecord(record)}
-                        />
-                    </Popconfirm>
-                </Space>
-            ),
+            title: "Giờ đến",
+            dataIndex: "checkIn",
+            key: "checkIn",
+        },
+        {
+            title: "Giờ về",
+            dataIndex: "checkOut",
+            key: "checkOut",
         },
     ];
 
@@ -59,7 +33,7 @@ export const WorkingTime = () => {
         const now = dayjs();
         setIsLoading(true);
         const data = await addData({
-            formData: { key: new Date().getTime().toString(), date: now.format('YYYY-MM-DD HH:mm:ss')},
+            formData: { key: new Date().getTime().toString(), date: now.format('YYYY-MM-DD HH:mm:ss') },
             collectionName: "working-time"
         });
         setIsLoading(false);
@@ -70,15 +44,18 @@ export const WorkingTime = () => {
 
     return (
         <>
-            <Button onClick={handleTap}>
+            <Button onClick={handleTap} style={{ marginBottom: "20px" }}>
                 Tap
             </Button>
+            <TableTitleWrapper>
+                <h2>Lịch sử chấm công</h2>
+            </TableTitleWrapper>
             {
                 isLoading && (
                     <Spin />
                 )
             }
-            <Table dataSource={timeHistory} columns={columns} />
+            <Table dataSource={dataSource} columns={columns} />
 
         </>
     )

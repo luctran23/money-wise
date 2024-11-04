@@ -12,7 +12,7 @@ import { Category } from "@src/types/categoryTypes";
 import { updateExpense } from "@src/hooks/updateCollection/updateDocument";
 import { deleteExpense } from "@src/hooks/deleteCollection/deleteExpense";
 import dayjs from 'dayjs';
-import { formatCurrencyVND } from "@src/utils/expense";
+import { formatCurrencyVND, formatDescription } from "@src/utils/expense";
 
 // Get the current date
 const now = dayjs();
@@ -24,9 +24,10 @@ const CenteredContainer = styled.div`
   transform: translate(-50%, -50%); // Center the spin
 `;
 
-const TableTitleWrapper = styled.div`
+export const TableTitleWrapper = styled.div`
     width: 100%;
     text-align: center;
+    margin-top: 20px;
     margin-bottom: 20px;
 `;
 
@@ -154,6 +155,7 @@ export const ExpenseTable = () => {
             title: "Mô tả",
             dataIndex: "description",
             key: "description",
+            render: (text: string) => <>{formatDescription(text)}</>,
         },
         {
             title: "Danh mục",
@@ -214,7 +216,13 @@ export const ExpenseTable = () => {
                         <TableTitleWrapper>
                             <h2>Khoản chi</h2>
                         </TableTitleWrapper>
-                        <Table dataSource={expenses} columns={columns} />
+                        <Table
+                            dataSource={expenses}
+                            columns={columns}
+                            style={{
+                                overflow: "scroll",
+                                height: "60vh"
+                            }} />
                         <ViewDialog
                             isOpen={isViewDialogOpen}
                             handleOk={handleViewOK}

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Avatar, Select } from "antd";
-import { Layout as LayoutAntd, theme } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Layout as LayoutAntd } from "antd";
+import { UserOutlined, MenuOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { DatePicker } from "antd";
 import { useGetCollection } from "@src/hooks/useGetCollection/useGetCollection";
+import { MobileSidebarContext } from "@src/context";
 
 const { RangePicker } = DatePicker;
 
@@ -18,6 +19,7 @@ const FilterSection = styled.div`
     display: flex;
     margin-right: 10px;
     margin-left: 10px;
+      
 `;
 const ProfileSection = styled.div`
     margin-right: 10px;
@@ -25,11 +27,26 @@ const ProfileSection = styled.div`
 const SelectionWrapper = styled.div`
     margin-left: 10px;
 `;
+const HamburgerWrapper = styled.div``;
+
+const HeaderWrapper = styled(Header)`
+    padding: 16px;
+    display: flex;
+    background: #fff;
+    align-items: center;
+    justify-content: space-between;
+    .menu-fold-icon {
+        display: none;
+    }
+    @media (max-width: 768px) {
+        .menu-fold-icon {
+            display: block;
+        }
+    }
+`;
 export const HeaderComponent = () => {
-    const {
-        token: { colorBgContainer },
-    } = theme.useToken();
-    const {data: categories, loading: isGettingCategories} = useGetCollection({ collectionName: "categories" });
+    const { setIsOpen } = useContext(MobileSidebarContext);
+    const { data: categories, loading: isGettingCategories } = useGetCollection({ collectionName: "categories" });
 
 
     const onChange = (value: string) => {
@@ -46,18 +63,13 @@ export const HeaderComponent = () => {
     }));
 
     return (
-        <Header
-            style={{
-                padding: 0,
-                background: colorBgContainer,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-            }}
-        >
+        <HeaderWrapper>
+            <HamburgerWrapper className="menu-fold-icon">
+                <MenuOutlined onClick={() => setIsOpen(true)}/>
+            </HamburgerWrapper>
             <FilterSection>
-                <div>
-                    <RangePicker />
+                {/* <div>
+                    <RangePicker size="small" />
                 </div>
                 <SelectionWrapper>
                     <Select
@@ -71,15 +83,15 @@ export const HeaderComponent = () => {
                         }}
                         options={categoryOptions}
                     />
-                </SelectionWrapper>
+                </SelectionWrapper> */}
             </FilterSection>
             <ProfileSection>
                 <Avatar
                     style={{ backgroundColor: "#87d068" }}
                     icon={<UserOutlined />}
                 />
-                <ProfileName>Travis Noah</ProfileName>
+                <ProfileName>Trần Ngọc Lực</ProfileName>
             </ProfileSection>
-        </Header>
+        </HeaderWrapper>
     );
 };
