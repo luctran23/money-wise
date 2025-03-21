@@ -83,10 +83,6 @@ export const Charts: React.FC = () => {
     const daysToTet = getDaysToTet();
     return (
         <div>
-             Chỉ còn {daysToTet} ngày nữa là gặp vk yêu.
-             <div>
-                {`Chúng ta đã yêu nhau được ${getTimeOfLove()} ngày rồi.`}
-             </div>
             <HighchartsReact highcharts={Highcharts} options={options} />
         </div>
     );
