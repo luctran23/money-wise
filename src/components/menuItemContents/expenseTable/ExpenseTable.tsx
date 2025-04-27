@@ -221,7 +221,7 @@ export const ExpenseTable = () => {
                             columns={columns}
                             style={{
                                 overflow: "scroll",
-                                height: "60vh"
+                                // height: "60vh"
                             }} />
                         <ViewDialog
                             isOpen={isViewDialogOpen}
