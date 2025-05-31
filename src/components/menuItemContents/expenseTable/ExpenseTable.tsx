@@ -201,6 +201,21 @@ export const ExpenseTable = () => {
         },
     ];
 
+    const daysSinceApril13th = () => {
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const startDate = new Date(currentYear, 3, 13); // Month is 0-indexed (April is 3)
+
+        // If today's date is before April 13th, use the previous year
+        if (today < startDate) {
+            startDate.setFullYear(currentYear - 1);
+        }
+
+        const timeDifference: number = today.getTime() - startDate.getTime();
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        return daysDifference;
+    }
     return (
         <>
             {
@@ -216,6 +231,7 @@ export const ExpenseTable = () => {
                         <TableTitleWrapper>
                             <h2>Khoản chi</h2>
                         </TableTitleWrapper>
+                        <p>{`It's ${daysSinceApril13th()} days since that beautiful day.`}</p>
                         <Table
                             dataSource={expenses}
                             columns={columns}
